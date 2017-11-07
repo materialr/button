@@ -1,7 +1,7 @@
 {
-  "name": "@materialr/ripple",
+  "name": "@materialr/button",
   "version": "0.0.0-development",
-  "description": "Material ripple foundation implementation for React",
+  "description": "Material button implementation for React",
   "main": "lib/index.js",
   "scripts": {
     "build:production": "babel src --out-dir lib --ignore **/*.test.js,**/*.test.jsx",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/materialr/ripple.git"
+    "url": "https://github.com/materialr/button.git"
   },
   "keywords": [
     "React",
@@ -24,9 +24,9 @@
   "author": "Hendrik Volschenk <righteous.trespasser@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/materialr/ripple/issues"
+    "url": "https://github.com/materialr/button/issues"
   },
-  "homepage": "https://github.com/materialr/ripple#readme",
+  "homepage": "https://github.com/materialr/button#readme",
   "dependencies": {
     "@material/button": ">=0.23.0",
     "@materialr/ripple": "^0.0.0",
