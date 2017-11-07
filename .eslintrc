@@ -7,6 +7,7 @@
   "extends": "airbnb",
   "rules": {
     "function-paren-newline": ["error", "consistent"],
-    "object-curly-newline": ["error", { "consistent": true }]
+    "object-curly-newline": ["error", { "consistent": true }],
+    "react/no-typos": "off"
   }
 }
