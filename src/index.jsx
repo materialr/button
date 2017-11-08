@@ -1,6 +1,6 @@
 import rippleFoundation from '@materialr/ripple';
 import classnames from 'classnames';
-import PropTypes from 'prop-types';
+import { bool, func, node, oneOf, oneOfType, string } from 'prop-types';
 import React from 'react';
 
 import '@material/button/mdc-button.scss';
@@ -49,7 +49,8 @@ class Button extends React.Component {
     }
   }
   getClassNamesAsString() {
-    return `${this.getClassNamesFromProps()} ${this.getClassNames()} ${this.props.className}`;
+    return `${this.getClassNamesFromProps()} ${this.getClassNames()} ${this.props.className}`
+      .trim().replace('  ', ' ');
   }
   getClassNamesFromProps() {
     const {
@@ -115,18 +116,18 @@ class Button extends React.Component {
 }
 
 Button.propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-  compact: PropTypes.bool,
-  dense: PropTypes.bool,
-  disabled: PropTypes.bool,
-  onClick: PropTypes.func,
-  raised: PropTypes.bool,
-  rippleCentered: PropTypes.bool,
-  rippleEnabled: PropTypes.bool,
-  stroked: PropTypes.bool,
-  type: PropTypes.oneOf(['button', 'clear', 'submit']),
-  unelevated: PropTypes.bool,
+  children: oneOfType([node, string]).isRequired,
+  className: string,
+  compact: bool,
+  dense: bool,
+  disabled: bool,
+  onClick: func,
+  raised: bool,
+  rippleCentered: bool,
+  rippleEnabled: bool,
+  stroked: bool,
+  type: oneOf(['button', 'clear', 'submit']),
+  unelevated: bool,
 };
 
 Button.defaultProps = {

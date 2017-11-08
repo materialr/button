@@ -1,7 +1,7 @@
 {
-  "name": "@materialr/ripple",
+  "name": "@materialr/button",
   "version": "0.0.0-development",
-  "description": "Material ripple foundation implementation for React",
+  "description": "Material button implementation for React",
   "main": "lib/index.js",
   "scripts": {
     "build:production": "babel src --out-dir lib --ignore **/*.test.js,**/*.test.jsx",
@@ -13,20 +13,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/materialr/ripple.git"
+    "url": "https://github.com/materialr/button.git"
   },
   "keywords": [
     "React",
     "Material",
-    "Ripple",
-    "Foundation"
+    "Button"
   ],
   "author": "Hendrik Volschenk <righteous.trespasser@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/materialr/ripple/issues"
+    "url": "https://github.com/materialr/button/issues"
   },
-  "homepage": "https://github.com/materialr/ripple#readme",
+  "homepage": "https://github.com/materialr/button#readme",
   "dependencies": {
     "@material/button": ">=0.23.0",
     "@materialr/ripple": "^0.0.0",
@@ -42,17 +41,35 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "coveralls": "^3.0.0",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.2",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": ">=16.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": ">=6.0.2",
     "eslint-plugin-react": ">=7.4.0",
     "jest": "^21.2.1",
+    "react-dom": "^16.0.0",
     "semantic-release": "^8.2.0"
   },
   "jest": {
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/.jest"
+    ],
     "roots": [
       "<rootDir>/src"
-    ]
+    ],
+    "setupFiles": [
+      "<rootDir>/.jest/shim.js",
+      "<rootDir>/.jest/test-setup.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/.jest"
+    ],
+    "moduleNameMapper": {
+      "\\.scss$": "<rootDir>/.jest/style-mock.js"
+    }
   }
 }
