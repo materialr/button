@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import React from 'react';
 
 import Button from './index';
@@ -51,4 +51,13 @@ test('Renders children as a node', () => {
   const actual = wrapper.find(Children).exists();
 
   expect(actual).toEqual(expected);
+});
+
+test('Does not add a ripple when it is disabled', () => {
+  const wrapper = mount(<Button>{CHILDREN}</Button>);
+  const expected = undefined;
+
+  const actual = wrapper.instance().rippleFoundation;
+
+  expect(actual).toBe(expected);
 });
