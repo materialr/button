@@ -190,13 +190,3 @@ test('Does not detroy the ripple when the component unmounts without a ripple', 
 
   expect(instance.rippleDestroy).toHaveBeenCalledTimes(0);
 });
-
-test('Does not detroy the ripple when the component unmounts', () => {
-  const wrapper = shallow(<Button>{CHILDREN}</Button>);
-  const instance = wrapper.instance();
-  instance.rippleDestroy = jest.fn();
-
-  wrapper.unmount();
-
-  expect(instance.rippleDestroy).toHaveBeenCalledTimes(0);
-});
