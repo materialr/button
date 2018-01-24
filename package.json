@@ -8,8 +8,9 @@
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "lint": "eslint --ext .js .",
     "semantic-release": "semantic-release",
-    "test": "npm run lint && npm run test:scripts",
-    "test:scripts": "jest --coverage"
+    "test": "npm run lint && npm run test:vulnerabilities && npm run test:scripts",
+    "test:scripts": "jest --coverage",
+    "test:vulnerabilities": "nsp check"
   },
   "repository": {
     "type": "git",
@@ -27,8 +28,8 @@
   },
   "homepage": "https://github.com/materialr/button#readme",
   "dependencies": {
-    "@material/button": "^0.27.0",
-    "@materialr/ripple": "^0.0.3",
+    "@material/button": "^0.29.0",
+    "@materialr/ripple": "^0.0.4",
     "classnames": "^2.2.5",
     "prop-types": "^15.6.0",
     "react": "^16.2.0"
@@ -36,21 +37,22 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-jest": "^21.2.0",
+    "babel-jest": "^22.1.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "coveralls": "^3.0.0",
-    "enzyme": "^3.2.0",
-    "enzyme-adapter-react-16": "^1.1.0",
-    "eslint": "^4.13.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "eslint": "^4.16.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.5.1",
-    "jest": "^21.2.1",
+    "jest": "^22.1.4",
+    "nsp": "^3.1.0",
     "react-dom": "^16.2.0",
-    "semantic-release": "^9.1.1"
+    "semantic-release": "^12.2.4"
   },
   "jest": {
     "coveragePathIgnorePatterns": [
