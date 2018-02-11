@@ -29,7 +29,7 @@
   "homepage": "https://github.com/materialr/button#readme",
   "dependencies": {
     "@material/button": "^0.29.0",
-    "@materialr/ripple": "^0.0.4",
+    "@materialr/ripple": "^0.0.5",
     "classnames": "^2.2.5",
     "prop-types": "^15.6.0",
     "react": "^16.2.0"
