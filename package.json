@@ -28,31 +28,31 @@
   },
   "homepage": "https://github.com/materialr/button#readme",
   "dependencies": {
-    "@material/button": "^0.30.0",
-    "@materialr/ripple": "^0.0.6",
+    "@material/button": "^0.31.0",
+    "@materialr/ripple": "^0.1.0",
     "classnames": "^2.2.5",
-    "prop-types": "^15.6.0",
+    "prop-types": "^15.6.1",
     "react": "^16.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-jest": "^22.2.2",
+    "babel-jest": "^22.4.1",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "coveralls": "^3.0.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "eslint": "^4.17.0",
+    "eslint": "^4.18.2",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.6.1",
-    "jest": "^22.2.2",
-    "nsp": "^3.1.0",
+    "eslint-plugin-react": "^7.7.0",
+    "jest": "^22.4.2",
+    "nsp": "^3.2.1",
     "react-dom": "^16.2.0",
-    "semantic-release": "^13.3.1"
+    "semantic-release": "^15.0.0"
   },
   "jest": {
     "coveragePathIgnorePatterns": [
