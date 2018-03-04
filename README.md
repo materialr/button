@@ -1,3 +1,3 @@
 # @materialr/button
 
-React Material button implementation
+Material button implementation for React
