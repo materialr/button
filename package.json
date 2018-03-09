@@ -28,8 +28,8 @@
   },
   "homepage": "https://github.com/materialr/button#readme",
   "dependencies": {
-    "@material/button": "^0.31.0",
-    "@materialr/ripple": "^0.1.0",
+    "@material/button": "^0.32.0",
+    "@materialr/ripple": "^0.1.1",
     "classnames": "^2.2.5",
     "prop-types": "^15.6.1",
     "react": "^16.2.0"
@@ -52,7 +52,7 @@
     "jest": "^22.4.2",
     "nsp": "^3.2.1",
     "react-dom": "^16.2.0",
-    "semantic-release": "^15.0.0"
+    "semantic-release": "^15.0.2"
   },
   "jest": {
     "coveragePathIgnorePatterns": [
