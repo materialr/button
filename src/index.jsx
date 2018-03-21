@@ -54,7 +54,6 @@ class Button extends React.Component {
   }
   getClassNamesFromProps() {
     const {
-      compact,
       dense,
       raised,
       stroked,
@@ -62,7 +61,6 @@ class Button extends React.Component {
     } = this.props;
     return classnames({
       'mdc-button': true,
-      'mdc-button--compact': compact,
       'mdc-button--dense': dense,
       'mdc-button--raised': raised,
       'mdc-button--stroked': stroked,
@@ -118,7 +116,6 @@ class Button extends React.Component {
 Button.propTypes = {
   children: oneOfType([node, string]).isRequired,
   className: string,
-  compact: bool,
   dense: bool,
   disabled: bool,
   onClick: func,
@@ -132,7 +129,6 @@ Button.propTypes = {
 
 Button.defaultProps = {
   className: '',
-  compact: false,
   dense: false,
   disabled: false,
   onClick: undefined,

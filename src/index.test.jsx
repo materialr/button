@@ -16,9 +16,9 @@ test('Renders only default className', () => {
 });
 
 test('Renders all classNames based on props', () => {
-  const wrapper = shallow(<Button compact dense raised stroked unelevated>{CHILDREN}</Button>);
-  const expected = 'mdc-button mdc-button--compact mdc-button--dense mdc-button--raised ' +
-    'mdc-button--stroked mdc-button--unelevated';
+  const wrapper = shallow(<Button dense raised stroked unelevated>{CHILDREN}</Button>);
+  const expected = 'mdc-button mdc-button--dense mdc-button--raised mdc-button--stroked ' +
+    'mdc-button--unelevated';
 
   const actual = wrapper.props().className;
 
