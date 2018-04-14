@@ -4,4 +4,4 @@ services:
     build: "."
     container_name: "materialr-button"
     volumes:
-      - ./:/app
+      - ./:/home/node/app

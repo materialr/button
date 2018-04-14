@@ -1,0 +1,20 @@
+{
+  "coveragePathIgnorePatterns": [
+    "/node_modules/",
+    "<rootDir>/.jest"
+  ],
+  "moduleNameMapper": {
+    "\\.scss$": "<rootDir>/.jest/style-mock.js"
+  },
+  "roots": [
+    "<rootDir>/src"
+  ],
+  "setupFiles": [
+    "<rootDir>/.jest/shim.js",
+    "<rootDir>/.jest/test-setup.js"
+  ],
+  "testPathIgnorePatterns": [
+    "/node_modules/",
+    "<rootDir>/.jest"
+  ]
+}
