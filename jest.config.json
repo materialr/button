@@ -16,5 +16,8 @@
   "testPathIgnorePatterns": [
     "/node_modules/",
     "<rootDir>/.jest"
+  ],
+  "transformIgnorePatterns": [
+    "<rootDir>/node_modules/(!@material)"
   ]
 }

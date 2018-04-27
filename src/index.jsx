@@ -1,110 +1,64 @@
-import rippleFoundation from '@materialr/ripple';
+import { MDCRipple } from '@material/ripple';
 import classnames from 'classnames';
-import { bool, func, node, oneOf, oneOfType, string } from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
-
-import '@material/button/mdc-button.scss';
 
 class Button extends React.Component {
   constructor(props) {
     super(props);
-    this.button = undefined;
-    this.componentIsMounted = undefined;
-    this.rippleFoundation = undefined;
-    this.state = {
-      classNames: [],
-      cssVariables: {},
-    };
+    this.elementRoot = undefined;
+    this.ripple = undefined;
     this.getClassNames = this.getClassNames.bind(this);
-    this.getClassNamesAsString = this.getClassNamesAsString.bind(this);
-    this.getClassNamesFromProps = this.getClassNamesFromProps.bind(this);
     this.rippleCreate = this.rippleCreate.bind(this);
     this.rippleDestroy = this.rippleDestroy.bind(this);
-    this.updateClassNames = this.updateClassNames.bind(this);
-    this.updateCssVariables = this.updateCssVariables.bind(this);
   }
   componentDidMount() {
-    this.componentIsMounted = true;
-    if (this.props.rippleEnabled) {
+    if (this.props.ripple) {
       this.rippleCreate();
     }
   }
-  componentDidUpdate({ rippleEnabled: wasRippleEnabled, rippleCentered: wasRippleCentered }) {
-    const { rippleEnabled, rippleCentered } = this.props;
-    if (wasRippleEnabled && !rippleEnabled) {
-      this.rippleDestroy();
-    }
-    if (!wasRippleEnabled && rippleEnabled) {
-      this.rippleCreate();
-    }
-    if (wasRippleEnabled && rippleEnabled && (wasRippleCentered !== rippleCentered)) {
-      this.rippleDestroy();
-      this.rippleCreate();
+  componentDidUpdate({ ripple: previousRipple }) {
+    if (this.props.ripple !== previousRipple) {
+      if (previousRipple) {
+        this.rippleDestroy();
+      } else {
+        this.rippleCreate();
+      }
     }
   }
   componentWillUnmount() {
-    this.componentIsMounted = false;
-    if (this.props.rippleEnabled && this.rippleFoundation) {
+    if (this.props.ripple) {
       this.rippleDestroy();
     }
   }
-  getClassNamesAsString() {
-    return `${this.getClassNamesFromProps()} ${this.getClassNames()} ${this.props.className}`
-      .trim().replace('  ', ' ');
-  }
-  getClassNamesFromProps() {
-    const {
-      dense,
-      raised,
-      stroked,
-      unelevated,
-    } = this.props;
+  getClassNames() {
+    const { className, dense, outlined, raised, unelevated } = this.props;
     return classnames({
       'mdc-button': true,
       'mdc-button--dense': dense,
+      'mdc-button--outlined': outlined,
       'mdc-button--raised': raised,
-      'mdc-button--stroked': stroked,
       'mdc-button--unelevated': unelevated,
+      [className]: !!className,
     });
-  }
-  getClassNames() {
-    return this.state.classNames.join(' ');
   }
   rippleCreate() {
-    const { disabled, rippleCentered } = this.props;
-    this.rippleFoundation = rippleFoundation({
-      centered: rippleCentered,
-      disabled,
-      element: this.button,
-      self: this,
-      updateClassNames: this.updateClassNames,
-      updateCssVariables: this.updateCssVariables,
-    });
-    this.rippleFoundation.init();
+    this.ripple = new MDCRipple(this.elementRoot);
   }
   rippleDestroy() {
-    this.rippleFoundation.destroy();
-    this.rippleFoundation = undefined;
-  }
-  updateClassNames(classNames) {
-    if (this.componentIsMounted) {
-      this.setState({ classNames });
-    }
-  }
-  updateCssVariables(cssVariables) {
-    if (this.componentIsMounted) {
-      this.setState({ cssVariables });
-    }
+    this.ripple.destroy();
   }
   render() {
-    const { children, disabled, onClick, type } = this.props;
+    const {
+      getClassNames,
+      props: { children, disabled, onClick, type },
+    } = this;
     return (
       <button
-        className={this.getClassNamesAsString()}
+        className={getClassNames()}
         disabled={disabled}
         onClick={onClick}
-        ref={(button) => { this.button = button; }}
-        style={this.state.cssVariables}
+        ref={(elementRoot) => { this.elementRoot = elementRoot; }}
         type={type}
       >
         {children}
@@ -114,28 +68,26 @@ class Button extends React.Component {
 }
 
 Button.propTypes = {
-  children: oneOfType([node, string]).isRequired,
-  className: string,
-  dense: bool,
-  disabled: bool,
-  onClick: func,
-  raised: bool,
-  rippleCentered: bool,
-  rippleEnabled: bool,
-  stroked: bool,
-  type: oneOf(['button', 'clear', 'submit']),
-  unelevated: bool,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
+  className: PropTypes.string,
+  dense: PropTypes.bool,
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
+  outlined: PropTypes.bool,
+  raised: PropTypes.bool,
+  ripple: PropTypes.bool,
+  type: PropTypes.oneOf(['button', 'clear', 'submit']),
+  unelevated: PropTypes.bool,
 };
 
 Button.defaultProps = {
-  className: '',
+  className: undefined,
   dense: false,
   disabled: false,
   onClick: undefined,
+  outlined: false,
   raised: false,
-  rippleCentered: false,
-  rippleEnabled: false,
-  stroked: false,
+  ripple: false,
   type: 'button',
   unelevated: false,
 };
