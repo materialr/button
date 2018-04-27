@@ -1,4 +1,4 @@
-import rippleFoundation from '@materialr/ripple';
+import * as ripple from '@material/ripple';
 import { mount, shallow } from 'enzyme';
 import React from 'react';
 
@@ -6,8 +6,8 @@ import Button from './index';
 
 const CHILDREN = 'CHILDREN';
 
-test('Renders only default className', () => {
-  const wrapper = shallow(<Button>{CHILDREN}</Button>);
+test('Renders the correct className', () => {
+  const wrapper = shallow(<Button>{CHILDREN}</Button>, { disableLifecycleMethods: true });
   const expected = 'mdc-button';
 
   const actual = wrapper.props().className;
@@ -15,19 +15,12 @@ test('Renders only default className', () => {
   expect(actual).toBe(expected);
 });
 
-test('Renders all classNames based on props', () => {
-  const wrapper = shallow(<Button dense raised stroked unelevated>{CHILDREN}</Button>);
-  const expected = 'mdc-button mdc-button--dense mdc-button--raised mdc-button--stroked ' +
-    'mdc-button--unelevated';
-
-  const actual = wrapper.props().className;
-
-  expect(actual).toBe(expected);
-});
-
-test('Renders extra classNames that are passed in', () => {
+test('Renders additional classNames', () => {
   const CLASS_NAME = 'CLASS_NAME';
-  const wrapper = shallow(<Button className={CLASS_NAME}>{CHILDREN}</Button>);
+  const wrapper = shallow(
+    <Button className={CLASS_NAME}>{CHILDREN}</Button>,
+    { disableLifecycleMethods: true },
+  );
   const expected = `mdc-button ${CLASS_NAME}`;
 
   const actual = wrapper.props().className;
@@ -35,158 +28,159 @@ test('Renders extra classNames that are passed in', () => {
   expect(actual).toBe(expected);
 });
 
-test('Renders children as a string', () => {
-  const wrapper = shallow(<Button>{CHILDREN}</Button>);
-  const expected = CHILDREN;
+test('Renders a dense button', () => {
+  const wrapper = shallow(<Button dense>{CHILDREN}</Button>, { disableLifecycleMethods: true });
+  const expected = 'mdc-button mdc-button--dense';
 
-  const actual = wrapper.text();
-
-  expect(actual).toBe(expected);
-});
-
-test('Renders children as a node', () => {
-  const Children = () => <p>CHILDREN_NODE</p>;
-  const wrapper = shallow(<Button><Children /></Button>);
-  const expected = true;
-
-  const actual = wrapper.find(Children).exists();
-
-  expect(actual).toEqual(expected);
-});
-
-test('Does not add a ripple when it is disabled', () => {
-  const wrapper = mount(<Button>{CHILDREN}</Button>);
-  const expected = undefined;
-
-  const actual = wrapper.instance().rippleFoundation;
+  const actual = wrapper.props().className;
 
   expect(actual).toBe(expected);
 });
 
-test('Adds a ripple when it is enabled', () => {
-  const wrapper = mount(<Button rippleEnabled>{CHILDREN}</Button>);
-  const { disabled, rippleCentered } = wrapper.props();
-  const instance = wrapper.instance();
-  const { button, updateClassNames, updateCssVariables } = instance;
-  const expected = rippleFoundation({
-    centered: rippleCentered,
-    disabled,
-    element: button,
-    self: instance,
-    updateClassNames,
-    updateCssVariables,
-  });
+test('Renders an outlined button', () => {
+  const wrapper = shallow(<Button outlined>{CHILDREN}</Button>, { disableLifecycleMethods: true });
+  const expected = 'mdc-button mdc-button--outlined';
 
-  const actual = instance.rippleFoundation;
-
-  expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected));
-});
-
-test('Adds the ripple if the prop changes', () => {
-  const wrapper = mount(<Button>{CHILDREN}</Button>);
-  const instance = wrapper.instance();
-  instance.rippleCreate = jest.fn();
-
-  wrapper.setProps({ rippleEnabled: true });
-
-  expect(instance.rippleCreate).toHaveBeenCalledTimes(1);
-});
-
-test('Removes the ripple if the prop changes', () => {
-  const wrapper = mount(<Button rippleEnabled>{CHILDREN}</Button>);
-  const instance = wrapper.instance();
-  const expected = undefined;
-
-  wrapper.setProps({ rippleEnabled: false });
-  const actual = instance.rippleFoundation;
+  const actual = wrapper.props().className;
 
   expect(actual).toBe(expected);
 });
 
-test('Centers the ripple if it was previously uncentered', () => {
-  const wrapper = mount(<Button rippleEnabled>{CHILDREN}</Button>);
-  const { disabled } = wrapper.props();
-  const instance = wrapper.instance();
-  const { button, updateClassNames, updateCssVariables } = instance;
-  const expected = rippleFoundation({
-    centered: true,
-    disabled,
-    element: button,
-    self: instance,
-    updateClassNames,
-    updateCssVariables,
-  });
+test('Renders a raised button', () => {
+  const wrapper = shallow(<Button raised>{CHILDREN}</Button>, { disableLifecycleMethods: true });
+  const expected = 'mdc-button mdc-button--raised';
 
-  wrapper.setProps({ rippleCentered: true });
-  const actual = instance.rippleFoundation;
+  const actual = wrapper.props().className;
 
-  expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected));
+  expect(actual).toBe(expected);
 });
 
-test('Updates classNames in state when \'updateClassNames()\' is called', () => {
-  const CLASS_NAMES = ['CLASS_NAME'];
-  const wrapper = mount(<Button>{CHILDREN}</Button>);
-  const instance = wrapper.instance();
-  const expected = CLASS_NAMES;
+test('Renders an unelevated button', () => {
+  const wrapper = shallow(
+    <Button unelevated>{CHILDREN}</Button>,
+    { disableLifecycleMethods: true },
+  );
+  const expected = 'mdc-button mdc-button--unelevated';
 
-  instance.updateClassNames(CLASS_NAMES);
-  const actual = instance.state.classNames;
+  const actual = wrapper.props().className;
 
-  expect(actual).toEqual(expected);
+  expect(actual).toBe(expected);
 });
 
-test('Does not update classNames in state when \'updateClassNames()\' is called on an unmounted component', () => {
-  const CLASS_NAMES = ['CLASS_NAME'];
-  const wrapper = shallow(<Button>{CHILDREN}</Button>);
-  const instance = wrapper.instance();
-  instance.setState = jest.fn();
+test('Renders the correct props', () => {
+  const DISABLED = true;
+  const ON_CLICK = () => 'ON_CLICK';
+  const TYPE = 'button';
+  const wrapper = shallow(
+    <Button disabled={DISABLED} onClick={ON_CLICK} type={TYPE}>{CHILDREN}</Button>,
+    { disableLifecycleMethods: true },
+  );
+  const expectedChildren = CHILDREN;
+  const expectedDisabled = DISABLED;
+  const expectedOnClick = ON_CLICK;
+  const expectedType = TYPE;
 
-  instance.componentIsMounted = false;
-  instance.updateClassNames(CLASS_NAMES);
+  const wrapperProps = wrapper.props();
+  const actualChildren = wrapperProps.children;
+  const actualDisabled = wrapperProps.disabled;
+  const actualOnClick = wrapperProps.onClick;
+  const actualType = wrapperProps.type;
 
-  expect(instance.setState).toHaveBeenCalledTimes(0);
+  expect(actualChildren).toBe(expectedChildren);
+  expect(actualDisabled).toBe(expectedDisabled);
+  expect(actualOnClick).toBe(expectedOnClick);
+  expect(actualType).toBe(expectedType);
 });
 
-test('Updates cssVariables in state when \'updateCssVariables()\' is called', () => {
-  const CSS_VARIABLES = ['CSS_VARIABLE'];
-  const wrapper = mount(<Button>{CHILDREN}</Button>);
+test('Creates the MDCRipple component on mount if enabled', () => {
+  const MDCRipple = jest.fn();
+  ripple.MDCRipple = MDCRipple;
+  const wrapper = mount(<Button ripple>{CHILDREN}</Button>);
   const instance = wrapper.instance();
-  const expected = CSS_VARIABLES;
+  const expected = instance.elementRoot;
 
-  instance.updateCssVariables(CSS_VARIABLES);
-  const actual = instance.state.cssVariables;
+  const actual = MDCRipple.mock.calls[0][0];
 
-  expect(actual).toEqual(expected);
+  expect(actual).toBe(expected);
 });
 
-test('Does not update cssVariables in state when \'updateCssVariables()\' is called on an unmounted component', () => {
-  const CSS_VARIABLES = ['CSS_VARIABLE'];
-  const wrapper = mount(<Button>{CHILDREN}</Button>);
-  const instance = wrapper.instance();
-  instance.setState = jest.fn();
+test('does not create the MDCRipple component on mount if disabled', () => {
+  const MDCRipple = jest.fn();
+  ripple.MDCRipple = MDCRipple;
+  mount(<Button>{CHILDREN}</Button>);
+  const expected = 0;
 
-  instance.componentIsMounted = false;
-  instance.updateCssVariables(CSS_VARIABLES);
+  const actual = MDCRipple.mock.calls.length;
 
-  expect(instance.setState).toHaveBeenCalledTimes(0);
+  expect(actual).toBe(expected);
 });
 
-test('Destroys the ripple when the component unmounts', () => {
-  const wrapper = mount(<Button rippleEnabled>{CHILDREN}</Button>);
+test('Destroys the ripple on unmount if enabled', () => {
+  const destroy = jest.fn();
+  const wrapper = mount(<Button ripple>{CHILDREN}</Button>);
   const instance = wrapper.instance();
-  instance.rippleDestroy = jest.fn();
+  const expected = 1;
+  instance.ripple = { destroy };
 
   wrapper.unmount();
+  const actual = destroy.mock.calls.length;
 
-  expect(instance.rippleDestroy).toHaveBeenCalledTimes(1);
+  expect(actual).toBe(expected);
 });
 
-test('Does not detroy the ripple when the component unmounts without a ripple', () => {
+test('Does not destroy the ripple on unmount if disabled', () => {
+  const destroy = jest.fn();
   const wrapper = mount(<Button>{CHILDREN}</Button>);
   const instance = wrapper.instance();
-  instance.rippleDestroy = jest.fn();
+  const expected = 0;
+  instance.ripple = { destroy };
 
   wrapper.unmount();
+  const actual = destroy.mock.calls.length;
 
-  expect(instance.rippleDestroy).toHaveBeenCalledTimes(0);
+  expect(actual).toBe(expected);
+});
+
+test('Creates the MDCRipple component on update if enabled', () => {
+  const MDCRipple = jest.fn();
+  ripple.MDCRipple = MDCRipple;
+  const wrapper = mount(<Button>{CHILDREN}</Button>);
+  const instance = wrapper.instance();
+  const expected = instance.elementRoot;
+
+  wrapper.setProps({ ripple: true });
+  const actual = MDCRipple.mock.calls[0][0];
+
+  expect(actual).toBe(expected);
+});
+
+test('Destroys the ripple on update if disabled', () => {
+  const destroy = jest.fn();
+  const wrapper = mount(<Button ripple>{CHILDREN}</Button>);
+  const instance = wrapper.instance();
+  const expected = 1;
+  instance.ripple = { destroy };
+
+  wrapper.setProps({ ripple: false });
+  const actual = destroy.mock.calls.length;
+
+  expect(actual).toBe(expected);
+});
+
+test('Makes no change when the ripple prop doesn\'t change', () => {
+  const destroy = jest.fn();
+  const MDCRipple = jest.fn();
+  ripple.MDCRipple = MDCRipple;
+  const wrapper = mount(<Button>{CHILDREN}</Button>);
+  const instance = wrapper.instance();
+  const expectedDestroy = 0;
+  const expectedMDCRipple = 0;
+  instance.ripple = { destroy };
+
+  wrapper.setProps({ ripple: false });
+  const actualDestroy = destroy.mock.calls.length;
+  const actualMDCRipple = MDCRipple.mock.calls.length;
+
+  expect(actualDestroy).toBe(expectedDestroy);
+  expect(actualMDCRipple).toBe(expectedMDCRipple);
 });
