@@ -3,6 +3,8 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import '@material/button/mdc-button.scss';
+
 class Button extends React.Component {
   constructor(props) {
     super(props);
