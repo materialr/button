@@ -53,7 +53,19 @@ class Button extends React.Component {
   render() {
     const {
       getClassNames,
-      props: { children, disabled, onClick, type },
+      props: {
+        children,
+        className,
+        dense,
+        disabled,
+        onClick,
+        outlined,
+        raised,
+        ripple,
+        type,
+        unelevated,
+        ...props
+      },
     } = this;
     return (
       <button
@@ -62,6 +74,7 @@ class Button extends React.Component {
         onClick={onClick}
         ref={(elementRoot) => { this.elementRoot = elementRoot; }}
         type={type}
+        {...props}
       >
         {children}
       </button>
